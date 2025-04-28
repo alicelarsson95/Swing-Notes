@@ -1,9 +1,8 @@
+import { JWT_SECRET } from "../config.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
-import { createUser, findUserByEmail } from "../models/userModel";
-
-const JWT_SECRET = process.env.JWT_SECRET;
+import { createUser, findUserByEmail } from "../models/userModel.js";
 
 export async function addUser(req, res) {
   const { email, password } = req.body;
@@ -25,7 +24,7 @@ export async function addUser(req, res) {
     const { id } = await createUser(newUser);
 
     res.status(201).json({
-      message: "User created",
+      message: "User created successfully",
       user: { id, email },
     });
   } catch (error) {
@@ -49,7 +48,7 @@ export async function loginUser(req, res) {
 
     const { id } = user;
 
-    const token = jwt.sign({ id, email }, JWT_SECRET, { expiresIn: "3h" });
+    const token = jwt.sign({ userId: id, email }, JWT_SECRET, { expiresIn: "3h" });
 
     res.status(200).json({
       message: "Login successful",

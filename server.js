@@ -1,15 +1,14 @@
 import express from 'express'
-import dotenv from 'dotenv'
+import userRoutes from "./routes/userRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
+import { PORT } from "./config.js";
 
-dotenv.config();
 const app = express();
 app.use(express.json());
 
-const PORT = process.env.PORT || 4040
-
-
+app.use("/user", userRoutes)
+app.use("/notes", noteRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    
 })
