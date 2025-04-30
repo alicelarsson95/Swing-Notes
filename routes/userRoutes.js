@@ -37,7 +37,7 @@ router.post("/signup", addUser);
  * @swagger
  * /user/login:
  *   post:
- *     summary: Login a user
+ *     summary: Log in to your account
  *     tags:
  *       - Users
  *     requestBody:

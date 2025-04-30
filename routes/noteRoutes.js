@@ -1,6 +1,6 @@
 import express from "express"
 import { addNote, getNotes, updateNote, deleteNote, searchNotes } from "../controllers/noteController.js"
-import { authenticate } from "../middleware/authenticate.js"
+import { auth } from "../middleware/auth.js"
 
 const router = express.Router()
 /**
@@ -31,12 +31,12 @@ const router = express.Router()
  *       401:
  *         description: Unauthorized
  */
-router.post("/", authenticate, addNote);
+router.post("/", auth, addNote);
 /**
  * @swagger
  * /notes:
  *   get:
- *     summary: View all saved notes for your account
+ *     summary: View all your saved notes
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -47,12 +47,12 @@ router.post("/", authenticate, addNote);
  *       401:
  *         description: Unauthorized
  */
-router.get("/", authenticate, getNotes);
+router.get("/", auth, getNotes);
 /**
  * @swagger
  * /notes:
  *   put:
- *     summary: Update a note
+ *     summary: Edit an existing note
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -80,12 +80,12 @@ router.get("/", authenticate, getNotes);
  *       404:
  *         description: Note not found
  */
-router.put("/", authenticate, updateNote);
+router.put("/", auth, updateNote);
 /**
  * @swagger
  * /notes:
  *   delete:
- *     summary: Delete a note
+ *     summary: Remove a saved note
  *     security:
  *       - bearerAuth: []
  *     tags:
@@ -111,7 +111,7 @@ router.put("/", authenticate, updateNote);
  *       404:
  *         description: Note not found
  */
-router.delete("/", authenticate, deleteNote);
+router.delete("/", auth, deleteNote);
 /**
  * @swagger
  * /notes/search:
@@ -136,6 +136,6 @@ router.delete("/", authenticate, deleteNote);
  *       401:
  *         description: Unauthorized
  */
-router.get("/search", authenticate, searchNotes);
+router.get("/search", auth, searchNotes);
 
 export default router

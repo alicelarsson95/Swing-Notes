@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config.js"; 
 
-export function authenticate(req, res, next) {
+export function auth(req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    return res.status(401).json({ message: "Authorization header missing" });
+    return res.status(401).json({ message: "Access denied: Authorization header required" });
   }
 
   const token = authHeader.split(" ")[1]; 
